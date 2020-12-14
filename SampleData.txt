@@ -1,0 +1,6 @@
+Derek | Jackson | 706683 | 87,05
+Jenn | Melkov | 289342 | 66,55
+Todor | Malnik | 182263 | 38,42
+Ryan | Groud | 259867 | 51,38
+Aleks | Turut | 749210 | 14,42
+Tasnim | Rey | 410638 | 72,89
