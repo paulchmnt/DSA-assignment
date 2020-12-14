@@ -12,6 +12,7 @@ namespace Assignment_01
 
             Console.WriteLine("Hi and welcome to the program of this assignement!");
             int choice; int index; // Creating these variables here to not create new ones at each loop
+
             while (true)
             {
                 choice = -1; index = -1; // Give them "false" values in case of incorrect choice to not execute the previous choice

@@ -22,6 +22,7 @@ namespace Assignment_01
         }
 
         // PROPERTIES
+        // Non-dynamic properties
         public string FirstName
         {
             get { return firstName; }

@@ -123,6 +123,5 @@ namespace Assignment_01
             else // If list is empty, display an appropriate message
                 Console.WriteLine("The list is empty.");
         }
-
     }
 }
