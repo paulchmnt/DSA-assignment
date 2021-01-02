@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace Assignment_01
+namespace Assignment
 {
     class CustomDataList // Name of the data structure
     {

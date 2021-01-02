@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Assignment_01
+namespace Assignment
 {
     class Program
     {
