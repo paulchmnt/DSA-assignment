@@ -18,24 +18,27 @@ namespace Assignment_01
                 choice = -1; index = -1; // Give them "false" values in case of incorrect choice to not execute the previous choice
 
                 // Display menu
-                Console.WriteLine("\n---------------------------------------");
+                Console.WriteLine("\n----------------------------------------------------------------------------------");
                 Console.WriteLine("Menu:\n\t" +
-                    "1. Populate the list with sample data (5 students are added)\n\t" +
+                    "1. Populate the list with sample data (6 students are added)\n\t" +
                     "2. Add an element to the list\n\t" +
                     "3. Get an element and its information by its index\n\t" +
                     "4. Remove an element with its index\n\t" +
                     "5. Remove the first element in the list\n\t" +
                     "6. Remove the last element in the list\n\t" +
                     "7. Display all elements in the list\n\t" +
-                    "8. Exit the program\n" +
-                    "---------------------------------------");
+                    "8. Sort all elements in the list by the field and the direction you choose\n\t" +
+                    "9. Get the element with the best score and display its information\n\t" +
+                    "10. Get the element with the lowest score and display its information\n\t" +
+                    "11. Exit the program\n" +
+                    "----------------------------------------------------------------------------------");
 
                 string choiceString = Console.ReadLine();
                 // Check if the user made a correct choice 
-                if (int.TryParse(choiceString, out int result) && int.Parse(choiceString) > 0 && int.Parse(choiceString) < 9)
+                if (int.TryParse(choiceString, out int result) && int.Parse(choiceString) > 0 && int.Parse(choiceString) < 12)
                     choice = result;
                 else
-                    Console.WriteLine("This is not a correct choice, please enter 1, 2, 3, 4, 5, 6, 7 or 8.");
+                    Console.WriteLine("This is not a correct choice, please enter 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 or 11.");
 
                 // Different cases
                 switch (choice)
@@ -45,11 +48,13 @@ namespace Assignment_01
                         Console.ReadKey();
                         break;
 
+
                     case 2: // Add an element to the list
                         Student studentToAdd = CreateStudent();
                         assignment.Add(studentToAdd);
                         Console.ReadKey();
                         break;
+
 
                     case 3: // Get an element and its information with its index
                         if (assignment.List.Count > 0) // Check if the list is not empty
@@ -71,11 +76,12 @@ namespace Assignment_01
                             Student studentToGet = assignment.GetElement(index);
                             // And display the student's information
                             Console.WriteLine(studentToGet.ToString());
-                            Console.ReadKey();
                         }
                         else // If list is empty, display an appropriate message
-                            Console.WriteLine("The list is empty, you cannot get an element from it!");
+                            Console.WriteLine("The list is empty, please fill it to execute this function.");
+                        Console.ReadKey();
                         break;
+
 
                     case 4: // Remove an element from the list by its index
                         if (assignment.List.Count > 0) // Check if the list is not empty
@@ -95,31 +101,120 @@ namespace Assignment_01
                             }
                             // Now we can remove the student from the list
                             assignment.RemoveByIndex(index);
-                            Console.ReadKey();
                         }
                         else // If list is empty, display an appropriate message
-                            Console.WriteLine("The list is empty, you cannot remove an element from it!");
+                            Console.WriteLine("The list is empty, please fill it to execute this function.");
+                        Console.ReadKey();
                         break;
+
 
                     case 5: // Remove the first element in the list
                         assignment.RemoveFirst();
                         Console.ReadKey();
                         break;
 
+
                     case 6: // Remove the last element in the list
                         assignment.RemoveLast();
                         Console.ReadKey();
                         break;
+
+
                     case 7: // Display all element in the list and its information 
                         assignment.DisplayList();
                         Console.ReadKey();
                         break;
-                    case 8: // Exit the program
+
+
+                    case 8: // Sort the list by field and direction chosen by the user
+                        if (assignment.List.Count > 0)
+                        {
+                            int sortField = -1; int sortDirection = -1; // Create variables needed and give them "fake" values
+
+                            // Choice of sortField
+                            while (true)
+                            {
+                                // Ask the user the sort field
+                                Console.WriteLine($"Please choose the sort field:\n\t" +
+                                    $"1. Firstname\n\t" +
+                                    $"2. Lastname\n\t" +
+                                    $"3. Student number\n\t" +
+                                    $"4. Average score\n\t");
+                                string sortFieldString = Console.ReadLine();
+                                // Check if the choice is correct
+                                if (int.TryParse(sortFieldString, out result) && int.Parse(sortFieldString) > 0 && int.Parse(sortFieldString) < 5)
+                                {
+                                    sortField = result; // Affect the correct result into sortField
+                                    break; // And break the loop
+                                }
+                                else // Display an appropriate message if choice not correct
+                                    Console.WriteLine("This is not a correct choice, please enter a number between 1 and 4.");
+                            }
+
+                            // Choice of sortDirection
+                            while (true)
+                            {
+                                // Ask the user the sort direction
+                                Console.WriteLine($"Please choose the sort direction:\n\t" +
+                                    $"1. Ascending\n\t" +
+                                    $"2. Descending\n\t");
+                                string sortDirectionString = Console.ReadLine();
+                                // Check if the choice is correct
+                                if (int.TryParse(sortDirectionString, out result) && int.Parse(sortDirectionString) > 0 && int.Parse(sortDirectionString) < 3)
+                                {
+                                    sortDirection = result; // Affect the correct result into sortDirection
+                                    break; // And break the loop
+                                }
+                                else // Display an appropriate message if choice not correct
+                                    Console.WriteLine("This is not a correct choice, please enter 1 or 2.");
+                            }
+
+                            // Now that the user chose the sort field and direction, we can sort the list according to his choices
+                            assignment.Sort(sortDirection, sortField);
+
+                            // Finally, we ask the user if he wants to display the sorted list
+                            Console.WriteLine("Do you want to display the sorted list (tap 'yes' if you want to)");
+                            choiceString = Console.ReadLine();
+                            if (choiceString == "yes")
+                                assignment.DisplayList();
+                        }
+                        else
+                            Console.WriteLine("The list is empty, please fill it to execute this function.");
+                        Console.ReadKey();
+                        break;
+
+
+                    case 9: // Get the student with the best score and display his/her information
+                        if (assignment.List.Count > 0) // Check if the list is not empty
+                        {
+                            Student bestStud = assignment.GetMaxElement(); // Get the best student
+                            Console.WriteLine($"Student {bestStud.FullName} has the highest score of all students in the list.");
+                            Console.WriteLine(bestStud.ToString()); // Display his/her information
+                        }
+                        else // If list is empty, display an appropriate message
+                            Console.WriteLine("The list is empty, please fill it to execute this function.");
+                        Console.ReadKey();
+                        break;
+
+
+                    case 10: // Get the student with the lowest score and display his/her information
+                        if (assignment.List.Count > 0) // Check if the list is not empty
+                        {
+                            Student worstStud = assignment.GetMinElement(); // Get the worst student
+                            Console.WriteLine($"Student {worstStud.FullName} has the lowest score of all students in the list.");
+                            Console.WriteLine(worstStud.ToString()); // Display his/her information
+                        }
+                        else // If list is empty, display an appropriate message
+                            Console.WriteLine("The list is empty, please fill it to execute this function.");
+                        Console.ReadKey();
+                        break;
+
+
+                    case 11: // Exit the program
                         goto breakOut; // Goes outside the big while loop
                 }
             }
         breakOut:;
-            Console.ReadKey();
         }
 
 

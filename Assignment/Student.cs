@@ -82,7 +82,7 @@ namespace Assignment_01
         // METHODS
         public override string ToString()
         {
-            string info = $"Student {FullName} informations:\n" +
+            string info = $"\nStudent {FullName} information:\n" +
                 $"First name: {FirstName}\n" +
                 $"Last name: {LastName}\n" +
                 $"Student number: {StudentNumber}\n" +
